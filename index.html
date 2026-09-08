@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Python - CS50</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 { font-size: 22px; color: #3776ab; }
+        .question { font-size: 18px; margin: 20px 0; font-weight: bold; }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #ffde57;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .options button:hover { background: #fcc200; }
+        #score { font-size: 18px; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <h1>Quiz Python</h1>
+    <div id="quiz-box">
+        <div class="question" id="question-text">Caricamento domanda...</div>
+        <div class="options" id="options-box"></div>
+    </div>
+    <div id="score"></div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            question: "Qual è il comando corretto in Python per stampare a schermo un output?",
+            options: ["echo('Hello')", "print('Hello')", "printf('Hello')", "console.log('Hello')"],
+            answer: 1
+        },
+        {
+            question: "Come si definisce una funzione in Python?",
+            options: ["function mia_funzione():", "def mia_funzione():", "fun mia_funzione():", "create mia_funzione():"],
+            answer: 1
+        },
+        {
+            question: "Quale tipo di dato restituisce la funzione `len()` applicata a una stringa?",
+            options: ["str", "bool", "int", "float"],
+            answer: 2
+        },
+        {
+            question: "Quale operatore viene utilizzato in Python per calcolare l'esponente (potenza)?",
+            options: ["^", "**", "exp()", "multiply"],
+            answer: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionText = document.getElementById("question-text");
+    const optionsBox = document.getElementById("options-box");
+    const scoreBox = document.getElementById("score");
+
+    function loadQuiz() {
+        if (currentQuestion < quizData.length) {
+            const q = quizData[currentQuestion];
+            questionText.innerText = q.question;
+            optionsBox.innerHTML = "";
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index);
+                optionsBox.appendChild(btn);
+            });
+        } else {
+            document.getElementById("quiz-box").style.display = "none";
+            scoreBox.innerText = `Quiz completato! Punteggio finale: ${score} / ${quizData.length}`;
+        }
+    }
+
+    function checkAnswer(selected) {
+        if (selected === quizData[currentQuestion].answer) {
+            score++;
+        }
+        currentQuestion++;
+        loadQuiz();
+    }
+
+    loadQuiz();
+</script>
+
+</body>
+</html>
