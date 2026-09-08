@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Python - Multi Sezione</title>
+    <title>Python Learning Hub - Versione 1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,7 +28,7 @@
             color: #2c3e50;
             text-align: center;
         }
-        .section-card {
+        .card {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             padding: 15px 20px;
@@ -37,10 +37,29 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .section-card:hover {
+        .card:hover {
             border-color: #3498db;
             background: #ebf5fb;
         }
+        .level-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .level-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            text-transform: capitalize;
+        }
+        .btn-beginner { background-color: #2ecc71; }
+        .btn-intermediate { background-color: #f39c12; }
+        .btn-advanced { background-color: #e74c3c; }
+        .level-btn:hover { opacity: 0.9; }
         .btn {
             background-color: #3498db;
             color: white;
@@ -52,9 +71,7 @@
             width: 100%;
             margin-top: 15px;
         }
-        .btn:hover {
-            background-color: #2980b9;
-        }
+        .btn:hover { background-color: #2980b9; }
         .option-btn {
             display: block;
             width: 100%;
@@ -67,97 +84,145 @@
             cursor: pointer;
             font-size: 15px;
         }
-        .option-btn:hover {
-            background: #dfe4ea;
-        }
-        .hidden {
-            display: none;
-        }
-        #score-container {
-            text-align: center;
+        .option-btn:hover { background: #dfe4ea; }
+        .hidden { display: none; }
+        .empty-msg {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Schermata Selezione Sezioni -->
-        <div id="section-screen">
-            <h1>Quiz Python Pro</h1>
-            <p style="text-align: center; color: #666;">Scegli una sezione per iniziare:</p>
-            <div id="sections-list"></div>
+        <!-- 1. Schermata Selezione Argomenti -->
+        <div id="topic-screen">
+            <h1>Python Learning Hub</h1>
+            <p style="text-align: center; color: #666;">Seleziona un argomento di studio:</p>
+            <div id="topics-list"></div>
         </div>
 
-        <!-- Schermata Quiz -->
+        <!-- 2. Schermata Selezione Livello -->
+        <div id="level-screen" class="hidden">
+            <h2 id="topic-title">Argomento</h2>
+            <p id="topic-desc" style="text-align: center; color: #666; margin-bottom: 20px;"></p>
+            <p style="font-weight: bold;">Scegli il livello di difficoltà:</p>
+            
+            <div id="level-options-container"></div>
+
+            <button id="back-to-topics" class="btn" style="background-color: #95a5a6; margin-top: 20px;">Torna agli Argomenti</button>
+        </div>
+
+        <!-- 3. Schermata Quiz -->
         <div id="quiz-screen" class="hidden">
-            <h2 id="section-title">Titolo Sezione</h2>
+            <h2 id="quiz-header">Quiz</h2>
             <p id="question-text" style="font-weight: bold; font-size: 18px; margin-top: 20px;"></p>
             <div id="options-container"></div>
-            <button id="back-to-sections" class="btn" style="background-color: #95a5a6; margin-top: 20px;">Torna alle Sezioni</button>
         </div>
 
-        <!-- Schermata Risultato -->
+        <!-- 4. Schermata Risultato -->
         <div id="result-screen" class="hidden">
-            <h2>Quiz Completato! 🎉</h2>
+            <h2>Livello Completato! 🎉</h2>
             <p id="final-score" style="font-size: 20px; text-align: center; margin: 20px 0;"></p>
-            <button onclick="location.reload()" class="btn">Ricomincia</button>
+            <button onclick="location.reload()" class="btn">Torna alla Home</button>
         </div>
     </div>
 
     <script>
         let quizData = {};
-        let currentSection = null;
+        let currentTopic = null;
+        let currentLevelKey = null;
+        let currentQuestionsList = [];
         let currentQuestionIndex = 0;
         let score = 0;
 
-        // Carica il file JSON esterno all'avvio
         async function loadQuizData() {
             try {
                 let response = await fetch('questions.json');
                 quizData = await response.json();
-                renderSections();
+                renderTopics();
             } catch (error) {
-                console.error("Errore nel caricamento delle domande:", error);
-                document.getElementById('section-screen').innerHTML = "<p style='color:red; text-align:center;'>Errore nel caricamento del database domande.</p>";
+                console.error("Errore nel caricamento del database:", error);
+                document.getElementById('topic-screen').innerHTML = "<p style='color:red; text-align:center;'>Errore nel caricamento del database delle domande.</p>";
             }
         }
 
-        // Mostra le sezioni disponibili nella schermata iniziale
-        function renderSections() {
-            const listContainer = document.getElementById('sections-list');
+        function renderTopics() {
+            const listContainer = document.getElementById('topics-list');
             listContainer.innerHTML = '';
 
-            quizData.sections.forEach((sec, index) => {
-                const card = document.createElement('div');
-                card.className = 'section-card';
-                card.innerHTML = `<h3>${sec.title}</h3><p style="margin:5px 0 0 0; color:#666; font-size:14px;">${sec.description}</p>`;
-                card.onclick = () => startSection(index);
+            quizData.topics.forEach((topic, index) => {
+                const card = document.div = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h3>${topic.title}</h3><p style="margin:5px 0 0 0; color:#666; font-size:14px;">${topic.description}</p>`;
+                card.onclick = () => selectTopic(index);
                 listContainer.appendChild(card);
             });
         }
 
-        // Avvia una sezione specifica
-        function startSection(index) {
-            currentSection = quizData.sections[index];
+        function selectTopic(index) {
+            currentTopic = quizData.topics[index];
+            document.getElementById('topic-title').innerText = currentTopic.title;
+            document.getElementById('topic-desc').innerText = currentTopic.description;
+
+            const levelContainer = document.getElementById('level-options-container');
+            levelContainer.innerHTML = '';
+
+            const levelsMeta = [
+                { key: 'beginner', label: 'Beginner (Principiante)', class: 'btn-beginner' },
+                { key: 'intermediate', label: 'Intermediate (Intermedio)', class: 'btn-intermediate' },
+                { key: 'advanced', label: 'Advanced (Avanzato)', class: 'btn-advanced' }
+            ];
+
+            levelsMeta.forEach(lvl => {
+                const count = currentTopic.levels[lvl.key] ? currentTopic.levels[lvl.key].length : 0;
+                
+                const wrapper = document.createElement('div');
+                wrapper.style.marginBottom = "10px";
+
+                const btn = document.createElement('button');
+                btn.className = `btn ${lvl.class}`;
+                btn.style.width = "100%";
+                btn.innerText = `${lvl.label} (${count} domande)`;
+                
+                if (count === 0) {
+                    btn.style.opacity = "0.5";
+                    btn.style.cursor = "not-allowed";
+                    btn.disabled = true;
+                } else {
+                    btn.onclick = () => startQuiz(lvl.key);
+                }
+
+                wrapper.appendChild(btn);
+                levelContainer.appendChild(wrapper);
+            });
+
+            document.getElementById('topic-screen').classList.add('hidden');
+            document.getElementById('level-screen').classList.remove('hidden');
+        }
+
+        function startQuiz(levelKey) {
+            currentLevelKey = levelKey;
+            currentQuestionsList = currentTopic.levels[levelKey];
             currentQuestionIndex = 0;
             score = 0;
 
-            document.getElementById('section-screen').classList.add('hidden');
+            document.getElementById('level-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
-            document.getElementById('section-titleinnerText = currentSection.title');
 
             showQuestion();
         }
 
-        // Mostra la domanda corrente
         function showQuestion() {
-            if (currentQuestionIndex >= currentSection.questions.length) {
+            if (currentQuestionIndex >= currentQuestionsList.length) {
                 showResult();
                 return;
             }
 
-            const q = currentSection.questions[currentQuestionIndex];
-            document.getElementById('section-title').innerText = `${currentSection.title} (${currentQuestionIndex + 1}/${currentSection.questions.length})`;
+            const q = currentQuestionsList[currentQuestionIndex];
+            document.getElementById('quiz-header').innerText = `${currentTopic.title} [${currentLevelKey.toUpperCase()}] (${currentQuestionIndex + 1}/${currentQuestionsList.length})`;
             document.getElementById('question-text').innerText = q.question;
 
             const optionsContainer = document.getElementById('options-container');
@@ -172,7 +237,6 @@
             });
         }
 
-        // Controlla la risposta selezionata
         function checkAnswer(selected, correct) {
             if (selected === correct) {
                 score++;
@@ -181,19 +245,17 @@
             showQuestion();
         }
 
-        // Mostra la schermata finale dei risultati
         function showResult() {
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('result-screen').classList.remove('hidden');
-            document.getElementById('final-score').innerText = `Hai risposto correttamente a ${score} su ${currentSection.questions.length} domande!`;
+            document.getElementById('final-score').innerText = `Hai totalizzato ${score} su ${currentQuestionsList.length} risposte corrette nel livello ${currentLevelKey}!`;
         }
 
-        document.getElementById('back-to-sections').onclick = () => {
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('section-screen').classList.remove('hidden');
+        document.getElementById('back-to-topics').onclick = () => {
+            document.getElementById('level-screen').classList.add('hidden');
+            document.getElementById('topic-screen').classList.remove('hidden');
         };
 
-        // Esegui il caricamento iniziale
         loadQuizData();
     </script>
 </body>
