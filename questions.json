@@ -1,0 +1,48 @@
+{
+  "sections": [
+    {
+      "id": "base",
+      "title": "Sintassi Base",
+      "description": "Concetti fondamentali di Python: print, variabili e tipi di dati.",
+      "questions": [
+        {
+          "question": "Qual è il comando corretto in Python per stampare a schermo un output?",
+          "options": [
+            "echo('Hello')",
+            "print('Hello')",
+            "printf('Hello')",
+            "console.log('Hello')"
+          ],
+          "answer": 1
+        },
+        {
+          "question": "Come si scrive un commento a riga singola in Python?",
+          "options": [
+            "// Questo è un commento",
+            "/* Questo è un commento */",
+            "# Questo è un commento",
+            "<!-- Questo è un commento -->"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "title": "Strutture Dati (Liste e Dizionari)",
+      "description": "Gestione di collezioni di dati in Python.",
+      "questions": [
+        {
+          "question": "Quale struttura dati si definisce usando le parentesi quadre []?",
+          "options": [
+            "Una tupla",
+            "Un dizionario",
+            "Una lista",
+            "Un set"
+          ],
+          "answer": 2
+        }
+      ]
+    }
+  ]
+}

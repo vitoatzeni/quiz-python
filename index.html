@@ -3,115 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Python - CS50</title>
+    <title>Quiz Python - Multi Sezione</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f4f6f9;
             color: #333;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
         .container {
-            background: white;
+            background: #ffffff;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
             width: 100%;
-            max-width: 500px;
+        }
+        h1, h2 {
+            color: #2c3e50;
             text-align: center;
         }
-        h1 { font-size: 22px; color: #3776ab; }
-        .question { font-size: 18px; margin: 20px 0; font-weight: bold; }
-        .options button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #ffde57;
-            color: #333;
+        .section-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .section-card:hover {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
             border: none;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
-            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
         }
-        .options button:hover { background: #fcc200; }
-        #score { font-size: 18px; font-weight: bold; margin-top: 20px; }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f1f2f6;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .option-btn:hover {
+            background: #dfe4ea;
+        }
+        .hidden {
+            display: none;
+        }
+        #score-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<div class="container" id="app">
-    <h1>Quiz Python</h1>
-    <div id="quiz-box">
-        <div class="question" id="question-text">Caricamento domanda...</div>
-        <div class="options" id="options-box"></div>
+    <div class="container">
+        <!-- Schermata Selezione Sezioni -->
+        <div id="section-screen">
+            <h1>Quiz Python Pro</h1>
+            <p style="text-align: center; color: #666;">Scegli una sezione per iniziare:</p>
+            <div id="sections-list"></div>
+        </div>
+
+        <!-- Schermata Quiz -->
+        <div id="quiz-screen" class="hidden">
+            <h2 id="section-title">Titolo Sezione</h2>
+            <p id="question-text" style="font-weight: bold; font-size: 18px; margin-top: 20px;"></p>
+            <div id="options-container"></div>
+            <button id="back-to-sections" class="btn" style="background-color: #95a5a6; margin-top: 20px;">Torna alle Sezioni</button>
+        </div>
+
+        <!-- Schermata Risultato -->
+        <div id="result-screen" class="hidden">
+            <h2>Quiz Completato! 🎉</h2>
+            <p id="final-score" style="font-size: 20px; text-align: center; margin: 20px 0;"></p>
+            <button onclick="location.reload()" class="btn">Ricomincia</button>
+        </div>
     </div>
-    <div id="score"></div>
-</div>
 
-<script>
-    const quizData = [
-        {
-            question: "Qual è il comando corretto in Python per stampare a schermo un output?",
-            options: ["echo('Hello')", "print('Hello')", "printf('Hello')", "console.log('Hello')"],
-            answer: 1
-        },
-        {
-            question: "Come si definisce una funzione in Python?",
-            options: ["function mia_funzione():", "def mia_funzione():", "fun mia_funzione():", "create mia_funzione():"],
-            answer: 1
-        },
-        {
-            question: "Quale tipo di dato restituisce la funzione `len()` applicata a una stringa?",
-            options: ["str", "bool", "int", "float"],
-            answer: 2
-        },
-        {
-            question: "Quale operatore viene utilizzato in Python per calcolare l'esponente (potenza)?",
-            options: ["^", "**", "exp()", "multiply"],
-            answer: 1
+    <script>
+        let quizData = {};
+        let currentSection = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // Carica il file JSON esterno all'avvio
+        async function loadQuizData() {
+            try {
+                let response = await fetch('questions.json');
+                quizData = await response.json();
+                renderSections();
+            } catch (error) {
+                console.error("Errore nel caricamento delle domande:", error);
+                document.getElementById('section-screen').innerHTML = "<p style='color:red; text-align:center;'>Errore nel caricamento del database domande.</p>";
+            }
         }
-    ];
 
-    let currentQuestion = 0;
-    let score = 0;
+        // Mostra le sezioni disponibili nella schermata iniziale
+        function renderSections() {
+            const listContainer = document.getElementById('sections-list');
+            listContainer.innerHTML = '';
 
-    const questionText = document.getElementById("question-text");
-    const optionsBox = document.getElementById("options-box");
-    const scoreBox = document.getElementById("score");
-
-    function loadQuiz() {
-        if (currentQuestion < quizData.length) {
-            const q = quizData[currentQuestion];
-            questionText.innerText = q.question;
-            optionsBox.innerHTML = "";
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement("button");
-                btn.innerText = opt;
-                btn.onclick = () => checkAnswer(index);
-                optionsBox.appendChild(btn);
+            quizData.sections.forEach((sec, index) => {
+                const card = document.createElement('div');
+                card.className = 'section-card';
+                card.innerHTML = `<h3>${sec.title}</h3><p style="margin:5px 0 0 0; color:#666; font-size:14px;">${sec.description}</p>`;
+                card.onclick = () => startSection(index);
+                listContainer.appendChild(card);
             });
-        } else {
-            document.getElementById("quiz-box").style.display = "none";
-            scoreBox.innerText = `Quiz completato! Punteggio finale: ${score} / ${quizData.length}`;
         }
-    }
 
-    function checkAnswer(selected) {
-        if (selected === quizData[currentQuestion].answer) {
-            score++;
+        // Avvia una sezione specifica
+        function startSection(index) {
+            currentSection = quizData.sections[index];
+            currentQuestionIndex = 0;
+            score = 0;
+
+            document.getElementById('section-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('section-titleinnerText = currentSection.title');
+
+            showQuestion();
         }
-        currentQuestion++;
-        loadQuiz();
-    }
 
-    loadQuiz();
-</script>
+        // Mostra la domanda corrente
+        function showQuestion() {
+            if (currentQuestionIndex >= currentSection.questions.length) {
+                showResult();
+                return;
+            }
 
+            const q = currentSection.questions[currentQuestionIndex];
+            document.getElementById('section-title').innerText = `${currentSection.title} (${currentQuestionIndex + 1}/${currentSection.questions.length})`;
+            document.getElementById('question-text').innerText = q.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(idx, q.answer);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // Controlla la risposta selezionata
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        // Mostra la schermata finale dei risultati
+        function showResult() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `Hai risposto correttamente a ${score} su ${currentSection.questions.length} domande!`;
+        }
+
+        document.getElementById('back-to-sections').onclick = () => {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('section-screen').classList.remove('hidden');
+        };
+
+        // Esegui il caricamento iniziale
+        loadQuizData();
+    </script>
 </body>
 </html>
