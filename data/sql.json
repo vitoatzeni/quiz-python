@@ -1,0 +1,172 @@
+{
+  "version": "1.0",
+  "topics": [
+    {
+      "id": "sql_fundamentals",
+      "title": "Fondamenti di SQL",
+      "description": "Selezioni, filtri e interrogazioni di base.",
+      "subtopics": [
+        {
+          "id": "queries",
+          "title": "Query di Base",
+          "levels": {
+            "beginner": [
+              {
+                "id": "sql-base-001",
+                "question": "Quale comando SQL viene utilizzato per estrarre dati da un database?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "GET"},
+                  {"id": "opt_b", "text": "EXTRACT"},
+                  {"id": "opt_c", "text": "SELECT"},
+                  {"id": "opt_d", "text": "OPEN"}
+                ],
+                "answer": "opt_c",
+                "explanation": "Il comando SELECT viene utilizzato per interrogare e recuperare i dati da una o più tabelle.",
+                "tags": ["select", "query", "basi"]
+              },
+              {
+                "id": "sql-base-002",
+                "question": "Quale clausola si usa in SQL per filtrare i record restituiti da una query?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "FILTER"},
+                  {"id": "opt_b", "text": "WHERE"},
+                  {"id": "opt_c", "text": "HAVING"},
+                  {"id": "opt_d", "text": "LIMIT"}
+                ],
+                "answer": "opt_b",
+                "explanation": "La clausola WHERE permette di specificare condizioni per filtrare le righe restituite da una query.",
+                "tags": ["where", "filtri", "condizioni"]
+              },
+              {
+                "id": "sql-base-003",
+                "question": "Quale parola chiave SQL viene utilizzata per restituire solo record unici (eliminando i duplicati)?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "UNIQUE"},
+                  {"id": "opt_b", "text": "DIFFERENT"},
+                  {"id": "opt_c", "text": "DISTINCT"},
+                  {"id": "opt_d", "text": "SINGLE"}
+                ],
+                "answer": "opt_c",
+                "explanation": "La parola chiave DISTINCT viene inserita dopo SELECT per rimuovere i duplicati dai risultati.",
+                "tags": ["distinct", "duplicati", "selezioni"]
+              },
+              {
+                "id": "sql-base-004",
+                "question": "Quale operatore viene comunemente usato con WHERE per cercare un pattern parziale in una stringa?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "LIKE"},
+                  {"id": "opt_b", "text": "SEARCH"},
+                  {"id": "opt_c", "text": "MATCH"},
+                  {"id": "opt_d", "text": "CONTAINS"}
+                ],
+                "answer": "opt_a",
+                "explanation": "L'operatore LIKE si usa insieme ai caratteri jolly (come %) per ricerche basate su pattern testuali.",
+                "tags": ["like", "stringhe", "pattern"]
+              },
+              {
+                "id": "sql-base-005",
+                "question": "Come si ordina il risultato di una query in ordine decrescente in SQL?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "ORDER BY ... DOWN"},
+                  {"id": "opt_b", "text": "SORT DESC"},
+                  {"id": "opt_c", "text": "ORDER BY ... DESC"},
+                  {"id": "opt_d", "text": "REVERSE ORDER"}
+                ],
+                "answer": "opt_c",
+                "explanation": "La clausola ORDER BY combinata con la parola chiave DESC ordina i risultati dal valore più alto al più basso.",
+                "tags": ["order_by", "desc", "ordinamento"]
+              },
+              {
+                "id": "sql-base-006",
+                "question": "Quale funzione di aggregazione restituisce il numero totale di righe che soddisfano una condizione?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "TOTAL()"},
+                  {"id": "opt_b", "text": "COUNT()"},
+                  {"id": "opt_c", "text": "SUM_ROWS()"},
+                  {"id": "opt_d", "text": "NUMBER()"}
+                ],
+                "answer": "opt_b",
+                "explanation": "La funzione COUNT() conta il numero di righe restituite da una query o che soddisfano determinati criteri.",
+                "tags": ["count", "funzioni_aggregazione", "statistiche"]
+              },
+              {
+                "id": "sql-base-007",
+                "question": "Quale comando SQL viene utilizzato per inserire nuovi dati in una tabella?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "ADD RECORD"},
+                  {"id": "opt_b", "text": "INSERT INTO"},
+                  {"id": "opt_c", "text": "UPDATE TABLE"},
+                  {"id": "opt_d", "text": "CREATE ROW"}
+                ],
+                "answer": "opt_b",
+                "explanation": "INSERT INTO è il comando DML utilizzato per aggiungere nuove righe/record all'interno di una tabella.",
+                "tags": ["insert_into", "dml", "scrittura"]
+              },
+              {
+                "id": "sql-base-008",
+                "question": "Quale comando SQL viene utilizzato per modificare dati già esistenti in una tabella?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "MODIFY"},
+                  {"id": "opt_b", "text": "CHANGE"},
+                  {"id": "opt_c", "text": "UPDATE"},
+                  {"id": "opt_d", "text": "ALTER"}
+                ],
+                "answer": "opt_c",
+                "explanation": "Il comando UPDATE, solitamente abbinato a WHERE, permette di aggiornare i valori dei campi nelle righe esistenti.",
+                "tags": ["update", "modifica", "dml"]
+              },
+              {
+                "id": "sql-base-009",
+                "question": "Quale comando SQL viene utilizzato per eliminare record da una tabella?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "REMOVE"},
+                  {"id": "opt_b", "text": "DELETE FROM"},
+                  {"id": "opt_c", "text": "DROP ROW"},
+                  {"id": "opt_d", "text": "CLEAR"}
+                ],
+                "answer": "opt_b",
+                "explanation": "DELETE FROM è il comando utilizzato per cancellare righe specifiche da una tabella.",
+                "tags": ["delete", "cancellazione", "dml"]
+              },
+              {
+                "id": "sql-base-010",
+                "question": "Quale operatore logico permette di combinare due condizioni entrambe necessarie in una clausola WHERE?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "AND"},
+                  {"id": "opt_b", "text": "OR"},
+                  {"id": "opt_c", "text": "BOTH"},
+                  {"id": "opt_d", "text": "COMBINE"}
+                ],
+                "answer": "opt_a",
+                "explanation": "L'operatore AND richiede che entrambe le condizioni collegate siano vere affinché la riga venga selezionata.",
+                "tags": ["and", "operatori_logici", "where"]
+              }
+            ],
+            "intermediate": [],
+            "advanced": []
+          }
+        }
+      ]
+    }
+  ]
+}

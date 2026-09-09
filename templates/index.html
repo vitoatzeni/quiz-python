@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Platform</title>
+
+    <style>
+        .category-selector button.active {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Quiz Platform</h1>
+
+<h3>Scegli una categoria:</h3>
+
+<form method="POST" action="/select-category">
+    <div class="category-selector">
+        {% for cat in categories %}
+            <button
+                type="submit"
+                name="category"
+                value="{{ cat }}"
+                {% if cat == current_category %}class="active"{% endif %}
+            >
+                {{ cat | capitalize }}
+            </button>
+        {% endfor %}
+    </div>
+</form>
+<h1>🎯 Quiz {{ session.get("category", "Quiz") }}</h1>    
+    <!-- CASO 1: VISUALIZZAZIONE DOMANDA -->
+    {% if question %}
+        <div style="margin-top: 20px;">
+            <h3>Domanda:</h3>
+            <p><strong>{{ question.question }}</strong></p>
+            
+            <form method="POST" action="">
+                <ul>
+                    {% for option in question.options %}
+                        <li style="list-style: none; margin-bottom: 10px;">
+                            <label>
+                                <input type="radio" name="selected_option" value="{{ option.id }}" required>
+                                <strong>{{ ['A', 'B', 'C', 'D'][loop.index0] }})</strong> {{ option.text }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <button type="submit" style="margin-top: 10px; padding: 8px 16px;">
+                    Rispondi
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- CASO 2: VISUALIZZAZIONE FEEDBACK RISPOSTA -->
+    {% if feedback %}
+        <div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9;">
+            <h3>Esito Risposta:</h3>
+
+            <p><strong>Domanda:</strong> {{ feedback.question_text }}</p>
+            
+            <p>
+                {% if feedback.result.is_correct %}
+                    <span style="color: green; font-weight: bold;">
+                        ✔ Risposta Corretta!
+                    </span>
+                {% else %}
+                    <span style="color: red; font-weight: bold;">
+                        ✖ Risposta Errata.
+                    </span>
+                    <br>
+                    La risposta corretta era:
+                    <strong>{{ feedback.correct_text }}</strong>
+                {% endif %}
+            </p>
+
+            {% if feedback.result.explanation %}
+                <p>
+                    <strong>Spiegazione:</strong>
+                    {{ feedback.result.explanation }}
+                </p>
+            {% endif %}
+
+            <!-- Pulsante per andare alla prossima domanda -->
+            <form action="{{ url_for('next_question') }}" method="POST">
+                <button type="submit"
+                        style="margin-top: 10px; padding: 8px 16px; background-color: #007BFF; color: white; border: none; cursor: pointer;">
+                    Prossima domanda
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- CASO 3: QUIZ COMPLETATO -->
+    {% if quiz_completed %}
+        <div style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9;">
+            <h3>🎉 Quiz completato!</h3>
+
+            <p>Punteggio: <strong>{{ score }} / {{ total }}</strong></p>
+
+            <p>Hai risposto correttamente a {{ score }} domande su {{ total }}.</p>
+
+            <!-- Pulsante per ricominciare -->
+            <form action="{{ url_for('restart_quiz') }}" method="POST">
+                <button type="submit"
+                        style="margin-top: 10px; padding: 8px 16px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+                    Ricomincia
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- MESSAGGIO DI FALLBACK -->
+    {% if not question and not feedback and not quiz_completed %}
+        <p>Il quiz è terminato o si è verificato un errore.</p>
+    {% endif %}
+
+</body>
+</html>

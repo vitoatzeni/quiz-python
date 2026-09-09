@@ -1,0 +1,172 @@
+{
+  "version": "1.0",
+  "topics": [
+    {
+      "id": "js_fundamentals",
+      "title": "Fondamenti di JavaScript",
+      "description": "Variabili, funzioni e sintassi di base.",
+      "subtopics": [
+        {
+          "id": "basics",
+          "title": "Basi di JavaScript",
+          "levels": {
+            "beginner": [
+              {
+                "id": "js-base-001",
+                "question": "Quale metodo viene comunemente utilizzato per stampare un output nella console in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "print()"},
+                  {"id": "opt_b", "text": "console.log()"},
+                  {"id": "opt_c", "text": "echo()"},
+                  {"id": "opt_d", "text": "write()"}
+                ],
+                "answer": "opt_b",
+                "explanation": "console.log() viene utilizzato per stampare messaggi nella console del browser o di Node.js.",
+                "tags": ["console", "output", "basi"]
+              },
+              {
+                "id": "js-base-002",
+                "question": "Quale parola chiave viene utilizzata per dichiarare una variabile che non può essere riassegnata in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "var"},
+                  {"id": "opt_b", "text": "let"},
+                  {"id": "opt_c", "text": "const"},
+                  {"id": "opt_d", "text": "static"}
+                ],
+                "answer": "opt_c",
+                "explanation": "const dichiara una costante il cui valore non può essere riassegnato dopo l'inizializzazione.",
+                "tags": ["const", "variabili", "es6"]
+              },
+              {
+                "id": "js-base-003",
+                "question": "Come si scrive un commento a riga singola in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "<!-- commento -->"},
+                  {"id": "opt_b", "text": "/* commento */"},
+                  {"id": "opt_c", "text": "// commento"},
+                  {"id": "opt_d", "text": "# commento"}
+                ],
+                "answer": "opt_c",
+                "explanation": "I commenti a riga singola in JavaScript iniziano con due barre (//).",
+                "tags": ["commenti", "sintassi"]
+              },
+              {
+                "id": "js-base-004",
+                "question": "Quale tipo di dato restituisce l'operatore typeof per un array in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "\"array\""},
+                  {"id": "opt_b", "text": "\"object\""},
+                  {"id": "opt_c", "text": "\"list\""},
+                  {"id": "opt_d", "text": "\"undefined\""}
+                ],
+                "answer": "opt_b",
+                "explanation": "In JavaScript gli array sono tecnicamente oggetti, quindi typeof restituisce \"object\".",
+                "tags": ["typeof", "array", "tipi"]
+              },
+              {
+                "id": "js-base-005",
+                "question": "Quale operatore viene usato per il confronto rigoroso (che verifica sia il valore che il tipo di dato)?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "=="},
+                  {"id": "opt_b", "text": "==="},
+                  {"id": "opt_c", "text": "="},
+                  {"id": "opt_d", "text": "!="}
+                ],
+                "answer": "opt_b",
+                "explanation": "L'operatore === esegue un confronto rigoroso controllando sia il valore che il tipo.",
+                "tags": ["operatori", "confronto", "uguaglianza"]
+              },
+              {
+                "id": "js-base-006",
+                "question": "Come si definisce una funzione standard in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "func miaFunzione() {}"},
+                  {"id": "opt_b", "text": "function miaFunzione() {}"},
+                  {"id": "opt_c", "text": "def miaFunzione() {}"},
+                  {"id": "opt_d", "text": "method miaFunzione() {}"}
+                ],
+                "answer": "opt_b",
+                "explanation": "In JavaScript le funzioni si dichiarano usando la parola chiave function seguita dal nome.",
+                "tags": ["funzioni", "definizione"]
+              },
+              {
+                "id": "js-base-007",
+                "question": "Quale metodo consente di aggiungere un elemento alla fine di un array in JavaScript?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "push()"},
+                  {"id": "opt_b", "text": "pop()"},
+                  {"id": "opt_c", "text": "shift()"},
+                  {"id": "opt_d", "text": "unshift()"}
+                ],
+                "answer": "opt_a",
+                "explanation": "Il metodo push() aggiunge uno o più elementi alla fine di un array e restituisce la nuova lunghezza.",
+                "tags": ["array", "push", "metodi"]
+              },
+              {
+                "id": "js-base-008",
+                "question": "Quale struttura di controllo viene utilizzata per eseguire un blocco di codice ripetutamente finché una condizione è vera?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "if...else"},
+                  {"id": "opt_b", "text": "switch"},
+                  {"id": "opt_c", "text": "while"},
+                  {"id": "opt_d", "text": "try...catch"}
+                ],
+                "answer": "opt_c",
+                "explanation": "Il ciclo while ripete un blocco di codice finché la condizione specificata rimane vera.",
+                "tags": ["cicli", "while", "controllo"]
+              },
+              {
+                "id": "js-base-009",
+                "question": "Come si accede alla lunghezza (numero di elementi) di una stringa o di un array?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": ".size()"},
+                  {"id": "opt_b", "text": ".length"},
+                  {"id": "opt_c", "text": ".count()"},
+                  {"id": "opt_d", "text": ".getElementCount()"}
+                ],
+                "answer": "opt_b",
+                "explanation": "La proprietà .length restituisce il numero di elementi in un array o i caratteri in una stringa.",
+                "tags": ["length", "proprietà", "array"]
+              },
+              {
+                "id": "js-base-010",
+                "question": "Quale metodo trasforma un oggetto JavaScript in una stringa JSON?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "JSON.parse()"},
+                  {"id": "opt_b", "text": "JSON.stringify()"},
+                  {"id": "opt_c", "text": "JSON.convert()"},
+                  {"id": "opt_d", "text": "JSON.toString()"}
+                ],
+                "answer": "opt_b",
+                "explanation": "JSON.stringify() converte un valore (solitamente un oggetto o un array) in una stringa JSON.",
+                "tags": ["json", "stringify", "oggetti"]
+              }
+            ],
+            "intermediate": [],
+            "advanced": []
+          }
+        }
+      ]
+    }
+  ]
+}

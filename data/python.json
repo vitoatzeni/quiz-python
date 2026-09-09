@@ -1,0 +1,172 @@
+{
+  "version": "1.0",
+  "topics": [
+    {
+      "id": "fundamentals",
+      "title": "Fondamenti",
+      "description": "Variabili, print e input.",
+      "subtopics": [
+        {
+          "id": "basics",
+          "title": "Basi di Python",
+          "levels": {
+            "beginner": [
+              {
+                "id": "fund-var-001",
+                "question": "Qual è la funzione incorporata in Python per stampare un output a schermo?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "echo()"},
+                  {"id": "opt_b", "text": "print()"},
+                  {"id": "opt_c", "text": "write()"},
+                  {"id": "opt_d", "text": "display()"}
+                ],
+                "answer": "opt_b",
+                "explanation": "La funzione print() viene utilizzata per inviare output alla console.",
+                "tags": ["print", "output", "funzioni"]
+              },
+              {
+                "id": "fund-var-002",
+                "question": "Quale funzione incorporata in Python viene utilizzata per acquisire un dato inserito dall'utente?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "input()"},
+                  {"id": "opt_b", "text": "read()"},
+                  {"id": "opt_c", "text": "scan()"},
+                  {"id": "opt_d", "text": "get()"}
+                ],
+                "answer": "opt_a",
+                "explanation": "La funzione input() permette di leggere un dato inserito dall'utente tramite la console.",
+                "tags": ["input", "funzioni", "utente"]
+              },
+              {
+                "id": "fund-var-003",
+                "question": "Quale dei seguenti è un nome valido per una variabile Python?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "2nome"},
+                  {"id": "opt_b", "text": "nome-utente"},
+                  {"id": "opt_c", "text": "nome_utente"},
+                  {"id": "opt_d", "text": "nome utente"}
+                ],
+                "answer": "opt_c",
+                "explanation": "Un nome di variabile può contenere lettere, numeri e underscore, ma non può iniziare con un numero né contenere spazi o trattini.",
+                "tags": ["variabili", "nomi", "sintassi"]
+              },
+              {
+                "id": "fund-var-004",
+                "question": "Quale sarà il valore della variabile x dopo l'esecuzione di questo codice? x = 10",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "0"},
+                  {"id": "opt_b", "text": "10"},
+                  {"id": "opt_c", "text": "\"10\""},
+                  {"id": "opt_d", "text": "None"}
+                ],
+                "answer": "opt_b",
+                "explanation": "L'istruzione x = 10 assegna il valore intero 10 alla variabile x.",
+                "tags": ["variabili", "assegnazione", "interi"]
+              },
+              {
+                "id": "fund-var-005",
+                "question": "Qual è il tipo di dato restituito da input() in Python?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "int"},
+                  {"id": "opt_b", "text": "float"},
+                  {"id": "opt_c", "text": "str"},
+                  {"id": "opt_d", "text": "bool"}
+                ],
+                "answer": "opt_c",
+                "explanation": "La funzione input() restituisce sempre una stringa (str), anche quando l'utente inserisce un numero.",
+                "tags": ["input", "stringhe", "tipi"]
+              },
+              {
+                "id": "fund-var-006",
+                "question": "Cosa stampa questo codice? print(2 + 3)",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "23"},
+                  {"id": "opt_b", "text": "5"},
+                  {"id": "opt_c", "text": "\"5\""},
+                  {"id": "opt_d", "text": "2 + 3"}
+                ],
+                "answer": "opt_b",
+                "explanation": "L'operatore + esegue una somma tra due numeri interi, quindi 2 + 3 produce 5.",
+                "tags": ["operatori", "somma", "print"]
+              },
+              {
+                "id": "fund-var-007",
+                "question": "Quale simbolo viene utilizzato in Python per assegnare un valore a una variabile?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "=="},
+                  {"id": "opt_b", "text": "="},
+                  {"id": "opt_c", "text": ":="},
+                  {"id": "opt_d", "text": "=>"}
+                ],
+                "answer": "opt_b",
+                "explanation": "Il simbolo = viene utilizzato per assegnare un valore a una variabile, ad esempio x = 10.",
+                "tags": ["variabili", "assegnazione", "operatori"]
+              },
+              {
+                "id": "fund-var-008",
+                "question": "Cosa stampa questo codice? nome = \"Mario\"; print(nome)",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "nome"},
+                  {"id": "opt_b", "text": "\"Mario\""},
+                  {"id": "opt_c", "text": "Mario"},
+                  {"id": "opt_d", "text": "None"}
+                ],
+                "answer": "opt_c",
+                "explanation": "La variabile nome contiene la stringa Mario e print(nome) stampa il contenuto della variabile senza le virgolette.",
+                "tags": ["variabili", "stringhe", "print"]
+              },
+              {
+                "id": "fund-var-009",
+                "question": "Quale funzione può essere utilizzata per convertire una stringa contenente un numero intero in un int?",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "str()"},
+                  {"id": "opt_b", "text": "float()"},
+                  {"id": "opt_c", "text": "int()"},
+                  {"id": "opt_d", "text": "number()"}
+                ],
+                "answer": "opt_c",
+                "explanation": "La funzione int() converte un valore compatibile, come la stringa \"42\", in un numero intero.",
+                "tags": ["conversione", "int", "tipi"]
+              },
+              {
+                "id": "fund-var-010",
+                "question": "Cosa stampa questo codice? x = 5; x = 8; print(x)",
+                "type": "knowledge",
+                "difficulty": 1,
+                "options": [
+                  {"id": "opt_a", "text": "5"},
+                  {"id": "opt_b", "text": "8"},
+                  {"id": "opt_c", "text": "5 8"},
+                  {"id": "opt_d", "text": "None"}
+                ],
+                "answer": "opt_b",
+                "explanation": "La seconda assegnazione sostituisce il precedente valore di x. Quando viene eseguito print(x), x vale quindi 8.",
+                "tags": ["variabili", "assegnazione", "print"]
+              }
+            ],
+            "intermediate": [],
+            "advanced": []
+          }
+        }
+      ]
+    }
+  ]
+}
